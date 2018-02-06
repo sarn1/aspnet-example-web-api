@@ -87,6 +87,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\IStatsService.cs" />
+    <Compile Include="DataAccess\Repositories\GameRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository.cs" />
+    <Compile Include="DataAccess\Repositories\EventRepository.cs" />
+    <Compile Include="DataAccess\Repositories\StatsService.cs" />
+    <Compile Include="DataAccess\Repositories\TeamRepository.cs" />
+    <Compile Include="DataAccess\Repositories\PlayerRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Repository.cs" />
     <Compile Include="DataAccess\StatsDBContext.cs" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />

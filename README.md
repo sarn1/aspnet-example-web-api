@@ -75,3 +75,4 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
 - *StatsDBContext.cs* is outside the Entities folder since its a DB Context.  And this will map all out entities (Game, Team Player, and GameEvent) to the database.
 - Because there are 2 migrations, you may need to remove one or refactor.  Then when you `Update-Database` you may need to create a new Data Connection.
 - Seed is in *Configuration.cs*
+[database table]: https://github.com/sarn1/aspnet-example-web-api/blob/master/readme_resources/tables.JPG "Database tables"
