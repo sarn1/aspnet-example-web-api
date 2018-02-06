@@ -46,4 +46,5 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
   return Ok(s.id);
 }
 ``` 
-
+- `jsonFormatter.SerializerSettings.DateFormatHandling`
+- 
