@@ -49,4 +49,29 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
 - `jsonFormatter.SerializerSettings.DateFormatHandling`
 
 # Project #
-- New > Project > ASP.NET Application C# > Web Api
+- *New > Project > ASP.NET Application C# > Web Api*
+- *Reference (in Solution Explorer) -> Manage Nuget Package -> Search for Entity Framework* (Entity Framework is Microsoft's recommended data access technology for new applications)
+- A user entity was created (*Entities/User.cs*) that will map to the database in the CF approach.
+- *AppDBContext.cs* was created (anything that is a context should be suffix as DBContext) to map the entity to a database.
+- In *Package Manager Console* run `Enable-Migrations` and a *Migrations* folder is created.
+- `Add-Migration Initial` to create our first migration so Entity Framework knows how to map to the database.
+- `Update-Database` any migration not been run, it will apply the migrations.  It will also run seed.
+- In *Server Explorer* click on *Connect to Database* icon and then
+	- Server name: (LocalDb)\MSSQLLocalDB ref ~~(localdb)\v11.0~~
+	- Select or enter a database name: soemthing with DEFAULTCONNECTION, very long string
+- Create Account entity (AppDBContext.cs, Entites/Account.cs, User.cs) and then add a new `Add-NMigration Added_Account`
+- Add something like this in the web.config
+```xml
+  <connectionStrings>
+    <add name="DefaultConnection" connectionString="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-stats-20180117095623.mdf;Initial Catalog=aspnet-api.nlt.to-20180117095623;Integrated Security=True;MultipleActiveResultSets=true" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+```
+
+## Pattern ##
+- Everything inherits from EntityBase so that the `ID` is kept dry.
+- The *ReportingBase.cs and EntityBase.cs* are `abstract` since you'll never need to instantiate these class directly since they don't provide any value other than a template class for those that inherits from it.
+- `EntityBase` also inherits from `ReportingBase`
+- In Team, `public virtual ICollection<Player> Players { get; set; }` represents that a Team can have many players.  But in Player, `public virtual Team Team { get; set; }` represents that a player can only be represented by one team.  As you can see, the definition is on both objects.
+- *StatsDBContext.cs* is outside the Entities folder since its a DB Context.  And this will map all out entities (Game, Team Player, and GameEvent) to the database.
+- Because there are 2 migrations, you may need to remove one or refactor.  Then when you `Update-Database` you may need to create a new Data Connection.
+- Seed is in *Configuration.cs*

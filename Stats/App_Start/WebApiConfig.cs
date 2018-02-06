@@ -5,7 +5,6 @@ using System.Web.Http;
 
 namespace Stats
 {
-    //this is a test.
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
