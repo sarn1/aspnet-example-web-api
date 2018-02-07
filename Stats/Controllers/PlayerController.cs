@@ -12,8 +12,8 @@ namespace Stats.Controllers
 {
     public class PlayerController : ApiController
     {
-        private IStatsService _service;
-        private IModelFactory _modelFactory;
+        private readonly IStatsService _service;
+        private readonly IModelFactory _modelFactory;
 
         public PlayerController()
         {
@@ -24,9 +24,14 @@ namespace Stats.Controllers
         // GET api/<controller>
         public IHttpActionResult Get()
         {
-            var players = _service.Players.Get();
-            var models = players.Select(_modelFactory.Create);
-            return Ok(models);
+            try {
+                var players = _service.Players.Get( );
+                var models = players.Select( _modelFactory.Create );
+
+                return Ok( models );
+            } catch ( Exception ex ) {
+                return InternalServerError( ex );
+            }
         }
 
         // GET api/<controller>/5
@@ -56,7 +61,7 @@ namespace Stats.Controllers
             var playerEntity = _modelFactory.Create(playerModel);
             var player = _service.Players.Insert(playerEntity);
             var model = _modelFactory.Create(player);
-            return Created(string.Format("http://localhost:1111/api/player/{0}", model.PlayerId), player);
+            return Created(string.Format("http://localhost:50408//api/player/{0}", model.PlayerId), model);
         }
 
         // PUT api/<controller>/5

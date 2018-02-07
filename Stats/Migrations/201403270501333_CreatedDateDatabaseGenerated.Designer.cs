@@ -6,19 +6,19 @@ namespace Stats.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class DatabaseGenerated : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
+    public sealed partial class CreatedDateDatabaseGenerated : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DatabaseGenerated));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreatedDateDatabaseGenerated));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802070055455_DatabaseGenerated"; }
+            get { return "201403270501333_CreatedDateDatabaseGenerated"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

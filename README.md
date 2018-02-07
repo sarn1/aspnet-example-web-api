@@ -84,3 +84,6 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
 	service.Player.Update();
 
 ```
+- [ModelValidator] code is in *Filter/ModelValidatorAttributes.cs* and is used in *PlayerController.cs*
+- In video 4.8.  `[DatabaseGenerated(DatabaseGeneratedOption.Computed)]` in *ReportingBase.cs*
+[database getdate]: https://github.com/sarn1/aspnet-example-web-api/blob/master/readme_resources/getdate.JPG "Database getdate"
