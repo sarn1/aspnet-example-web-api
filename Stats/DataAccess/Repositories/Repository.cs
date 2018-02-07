@@ -28,7 +28,6 @@ namespace Stats.DataAccess.Repositories
         {
             _context.Entry(obj).State = EntityState.Modified;
             _context.SaveChanges();
-
             return obj;
         }
 

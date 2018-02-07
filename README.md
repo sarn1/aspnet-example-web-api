@@ -67,7 +67,7 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
   </connectionStrings>
 ```
 
-## Pattern ##
+## Repository and Service Layer patterns ##
 - Everything inherits from EntityBase so that the `ID` is kept dry.
 - The *ReportingBase.cs and EntityBase.cs* are `abstract` since you'll never need to instantiate these class directly since they don't provide any value other than a template class for those that inherits from it.
 - `EntityBase` also inherits from `ReportingBase`
@@ -76,3 +76,11 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
 - Because there are 2 migrations, you may need to remove one or refactor.  Then when you `Update-Database` you may need to create a new Data Connection.
 - Seed is in *Configuration.cs*
 [database table]: https://github.com/sarn1/aspnet-example-web-api/blob/master/readme_resources/tables.JPG "Database tables"
+- All of this pattern allows for easy service layer to do the following:
+```csharp
+	var service = new StatsService();
+	service.Player.Get();
+	service.Teams.Get(1);
+	service.Player.Update();
+
+```

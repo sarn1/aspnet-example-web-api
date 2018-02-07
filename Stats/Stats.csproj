@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="DataAccess\IStatsService.cs" />
     <Compile Include="DataAccess\Repositories\GameRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="DataAccess\Entities\ReportingBase.cs" />
     <Compile Include="DataAccess\Entities\Team.cs" />
     <Compile Include="DataAccess\Entities\User.cs" />
+    <Compile Include="Filters\ModelValidatorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -117,7 +119,14 @@
     <Compile Include="Migrations\201802062100309_Initial.Designer.cs">
       <DependentUpon>201802062100309_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802070055455_DatabaseGenerated.cs" />
+    <Compile Include="Migrations\201802070055455_DatabaseGenerated.Designer.cs">
+      <DependentUpon>201802070055455_DatabaseGenerated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\PlayerModel.cs" />
+    <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -131,12 +140,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802062100309_Initial.resx">
       <DependentUpon>201802062100309_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802070055455_DatabaseGenerated.resx">
+      <DependentUpon>201802070055455_DatabaseGenerated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
