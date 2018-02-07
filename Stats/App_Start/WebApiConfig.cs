@@ -19,6 +19,13 @@ namespace Stats
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // custom route
+            config.Routes.MapHttpRoute(
+                name: "GameEvent",
+                routeTemplate: "api/game/events",
+                defaults: new { controller = "game", action = "CreateEvent" }
+            );
         }
     }
 }

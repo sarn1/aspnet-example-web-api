@@ -120,6 +120,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="DataAccess\IStatsService.cs" />
@@ -136,6 +138,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Compile Include="Migrations\201802071543528_AddEventsToGameEntity.cs" />
+    <Compile Include="Migrations\201802071543528_AddEventsToGameEntity.Designer.cs">
+      <DependentUpon>201802071543528_AddEventsToGameEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GameEventModel.cs" />
+    <Compile Include="Models\GameModel.cs" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -205,6 +213,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BaseApi\" />
+    <Folder Include="Views\Game\" />
     <Folder Include="Views\Team\" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403270530299_DatabaseGenerated.resx">
       <DependentUpon>201403270530299_DatabaseGenerated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802071543528_AddEventsToGameEntity.resx">
+      <DependentUpon>201802071543528_AddEventsToGameEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

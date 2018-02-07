@@ -49,6 +49,12 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
 - `jsonFormatter.SerializerSettings.DateFormatHandling`
 
 # Project #
+- http://localhost:50408/api/game
+- http://localhost:50408/api/player
+	- http://localhost:50408/api/player/1
+	- POST and DELETE
+
+## 4.3 Entity Framework and Code First ##
 - *New > Project > ASP.NET Application C# > Web Api*
 - *Reference (in Solution Explorer) -> Manage Nuget Package -> Search for Entity Framework* (Entity Framework is Microsoft's recommended data access technology for new applications)
 - A user entity was created (*Entities/User.cs*) that will map to the database in the CF approach.
@@ -67,7 +73,7 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
   </connectionStrings>
 ```
 
-## Repository and Service Layer patterns ##
+## 4.5 Repository and Service Layer patterns ##
 - Everything inherits from EntityBase so that the `ID` is kept dry.
 - The *ReportingBase.cs and EntityBase.cs* are `abstract` since you'll never need to instantiate these class directly since they don't provide any value other than a template class for those that inherits from it.
 - `EntityBase` also inherits from `ReportingBase`
@@ -75,15 +81,38 @@ public IHttpResponseResult Post ([FromBody]Sample s) {
 - *StatsDBContext.cs* is outside the Entities folder since its a DB Context.  And this will map all out entities (Game, Team Player, and GameEvent) to the database.
 - Because there are 2 migrations, you may need to remove one or refactor.  Then when you `Update-Database` you may need to create a new Data Connection.
 - Seed is in *Configuration.cs*
-[database table]: https://github.com/sarn1/aspnet-example-web-api/blob/master/readme_resources/tables.JPG "Database tables"
+![database table]: https://github.com/sarn1/aspnet-example-web-api/blob/master/readme_resources/tables.JPG "Database tables"
 - All of this pattern allows for easy service layer to do the following:
 ```csharp
 	var service = new StatsService();
 	service.Player.Get();
 	service.Teams.Get(1);
 	service.Player.Update();
-
 ```
+
+## 4.7 Model Validator ##
 - [ModelValidator] code is in *Filter/ModelValidatorAttributes.cs* and is used in *PlayerController.cs*
-- In video 4.8.  `[DatabaseGenerated(DatabaseGeneratedOption.Computed)]` in *ReportingBase.cs*
-[database getdate]: https://github.com/sarn1/aspnet-example-web-api/blob/master/readme_resources/getdate.JPG "Database getdate"
+
+## 4.8 More Actions ##
+- `[DatabaseGenerated(DatabaseGeneratedOption.Computed)]` in *ReportingBase.cs*
+![database getdate]: https://github.com/sarn1/aspnet-example-web-api/blob/master/readme_resources/getdate.JPG "Database getdate"
+
+
+
+## 4.9 Custom Routing ##
+```csharp
+// WebApiConfig.cs
+
+// custom route
+config.Routes.MapHttpRoute(
+	name: "GameEvent",
+	routeTemplate: "api/game/events",
+	defaults: new { controller = "game", action = "CreateEvent" }
+);
+
+// goes to GameEcontroller.cs 
+[ModelValidator]
+public IHttpActionResult CreateEvent([FromBody] GameEventModel gameEventModel)
+```
+
+

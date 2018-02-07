@@ -10,23 +10,18 @@ using System.Web.Http;
 
 namespace Stats.Controllers
 {
-    public class PlayerController : ApiController
+    public class PlayerController : BaseApiController
     {
-        private readonly IStatsService _service;
-        private readonly IModelFactory _modelFactory;
-
-        public PlayerController()
+        public PlayerController() : base(new ModelFactory(), new StatsService())
         {
-            _service = new StatsService();
-            _modelFactory = new ModelFactory();
         }
 
         // GET api/<controller>
         public IHttpActionResult Get()
         {
             try {
-                var players = _service.Players.Get( );
-                var models = players.Select( _modelFactory.Create );
+                var players = StatsService.Players.Get( );
+                var models = players.Select(ModelFactory.Create );
 
                 return Ok( models );
             } catch ( Exception ex ) {
@@ -39,8 +34,8 @@ namespace Stats.Controllers
         {
             try
             {
-                var player = _service.Players.Get(id);
-                var model = _modelFactory.Create(player);
+                var player = StatsService.Players.Get(id);
+                var model = ModelFactory.Create(player);
                 return Ok(model);
             } catch(Exception ex)
             {
@@ -58,10 +53,10 @@ namespace Stats.Controllers
         [ModelValidator]
         public IHttpActionResult Post([FromBody]PlayerModel playerModel)
         {
-            var playerEntity = _modelFactory.Create(playerModel);
-            var player = _service.Players.Insert(playerEntity);
-            var model = _modelFactory.Create(player);
-            return Created(string.Format("http://localhost:50408//api/player/{0}", model.PlayerId), model);
+            var playerEntity = ModelFactory.Create(playerModel);
+            var player = StatsService.Players.Insert(playerEntity);
+            var model = ModelFactory.Create(player);
+            return Created(string.Format("http://localhost:50408/api/player/{0}", model.PlayerId), model);
         }
 
         // PUT api/<controller>/5
@@ -70,9 +65,9 @@ namespace Stats.Controllers
         {
             try
             {
-                var playerEntity = _modelFactory.Create(playerModel);
-                var player = _service.Players.Update(playerEntity);
-                var model = _modelFactory.Create(player);
+                var playerEntity = ModelFactory.Create(playerModel);
+                var player = StatsService.Players.Update(playerEntity);
+                var model = ModelFactory.Create(player);
                 return Ok(model);
             } catch(Exception)
             {
@@ -85,11 +80,11 @@ namespace Stats.Controllers
         {
             try
             {
-                var playerEntity = _service.Players.Get(id);
+                var playerEntity = StatsService.Players.Get(id);
                 
                 if (playerEntity != null)
                 {
-                    _service.Players.Delete(playerEntity);
+                    StatsService.Players.Delete(playerEntity);
                 } else
                 {
                     return NotFound();

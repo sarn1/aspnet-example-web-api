@@ -11,6 +11,10 @@ namespace Stats.Models
         Player Create(PlayerModel playerModel);
         TeamModel Create(Team team);
         Team Create(TeamModel teamModel);
+        GameModel Create(Game game);
+        GameEventModel Create(GameEvent gameEvent);
+
+        GameEvent Create(Game gameEntity, Player playerEntity, int pointValue);
     }
 
     public class ModelFactory : IModelFactory
@@ -78,6 +82,33 @@ namespace Stats.Models
                 Players = new List<Player>(teamModel.Players.Select(Create)),
                 UpdatedDate = DateTime.Now
             };
+        }
+
+        public GameModel Create(Game game)
+        {
+            return new GameModel
+            {
+                AwayTeam = Create(game.AwayTeam),
+                HomeTeam = Create(game.HomeTeam),
+                Events = game.Events.Select(Create).ToList(),
+                GameID = game.ID,
+                StartTime = game.StartTime
+            };
+        }
+
+        public GameEventModel Create(GameEvent gameEvent)
+        {
+            return new GameEventModel
+            {
+                GameId = gameEvent.Game.ID,
+                PlayerId = gameEvent.Player.ID,
+                PointValue = gameEvent.PointValue
+            };
+        }
+
+        public GameEvent Create(Game gameEntity, Player playerEntity, int pointValue)
+        {
+            return new GameEvent { Game = gameEntity, Player = playerEntity, PointValue = pointValue, UpdatedDate = DateTime.Now };
         }
     }
 }

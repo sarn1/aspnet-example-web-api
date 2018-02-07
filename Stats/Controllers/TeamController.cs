@@ -10,23 +10,19 @@ using System.Web.Http;
 
 namespace Stats.Controllers
 {
-    public class TeamController : ApiController
+    public class TeamController : BaseApiController
     {
-        private readonly IModelFactory _modelFactory;
-        private readonly IStatsService _service;
-
-        public TeamController()
+        public TeamController() : base(new ModelFactory(), new StatsService())
         {
-            _service = new StatsService();
-            _modelFactory = new ModelFactory();
+
         }
 
         public IHttpActionResult Get()
         {
             try
             {
-                var teams = _service.Teams.Get();
-                var models = teams.Select(_modelFactory.Create);
+                var teams = StatsService.Teams.Get();
+                var models = teams.Select(ModelFactory.Create);
 
                 return Ok(models);
             }
@@ -40,8 +36,8 @@ namespace Stats.Controllers
         {
             try
             {
-                var team = _service.Teams.Get(id);
-                var model = _modelFactory.Create(team);
+                var team = StatsService.Teams.Get(id);
+                var model = ModelFactory.Create(team);
 
                 return Ok(model);
             }
@@ -56,11 +52,11 @@ namespace Stats.Controllers
         {
             try
             {
-                var teamEntity = _modelFactory.Create(teamModel);
-                var team = _service.Teams.Insert(teamEntity);
+                var teamEntity = ModelFactory.Create(teamModel);
+                var team = StatsService.Teams.Insert(teamEntity);
 
-                var model = _modelFactory.Create(team);
-                return Created(string.Format("http://localhost:13362/api/team/{0}", model.TeamId), model);
+                var model = ModelFactory.Create(team);
+                return Created(string.Format("http://localhost:50408/api/team/{0}", model.TeamId), model);
             }
             catch (Exception ex)
             {
@@ -73,10 +69,10 @@ namespace Stats.Controllers
         {
             try
             {
-                var teamEntity = _modelFactory.Create(teamModel);
-                var team = _service.Teams.Update(teamEntity);
+                var teamEntity = ModelFactory.Create(teamModel);
+                var team = StatsService.Teams.Update(teamEntity);
 
-                var model = _modelFactory.Create(team);
+                var model = ModelFactory.Create(team);
 
                 return Ok(model);
             }
@@ -90,9 +86,9 @@ namespace Stats.Controllers
         {
             try
             {
-                var teamEntity = _service.Teams.Get(id);
+                var teamEntity = StatsService.Teams.Get(id);
                 if (teamEntity != null)
-                    _service.Teams.Delete(teamEntity);
+                    StatsService.Teams.Delete(teamEntity);
 
                 return Ok();
             }
