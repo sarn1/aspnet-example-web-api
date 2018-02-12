@@ -8,6 +8,7 @@ namespace Stats.Models
 {
     public class PlayerModel
     {
+        public string Url { get; set; }
         public int PlayerId { get; set; }
         [Required]
         public string FirstName { get; set; }

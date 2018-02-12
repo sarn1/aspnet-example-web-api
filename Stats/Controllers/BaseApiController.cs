@@ -13,17 +13,23 @@ namespace Stats.Controllers
     {
         // rather than have these 2 properties in both PlayerController and TeamController, we put them here and have those controller inherit this.
         private readonly IStatsService _service;
-        private readonly IModelFactory _modelFactory;
+        private IModelFactory _modelFactory;
 
-        protected BaseApiController( IModelFactory modelFactory, IStatsService statsService)
+        protected BaseApiController( IStatsService statsService)
         {
-            _modelFactory = modelFactory;
             _service = statsService;
         }
 
         protected IModelFactory ModelFactory
         {
-            get { return _modelFactory; }
+            get {
+                if (_modelFactory == null)
+                {
+                    _modelFactory = new ModelFactory(Request);
+                }
+
+                    return _modelFactory;
+            }
         }
 
         protected IStatsService StatsService

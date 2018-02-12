@@ -114,5 +114,7 @@ config.Routes.MapHttpRoute(
 [ModelValidator]
 public IHttpActionResult CreateEvent([FromBody] GameEventModel gameEventModel)
 ```
+## 5.2 Enhancing Model ##
+- Player model now includes URL.  Uses `UrlHelper`
 
 

@@ -12,7 +12,7 @@ namespace Stats.Controllers
 {
     public class GameController : BaseApiController
     {
-        public GameController() : base(new ModelFactory(), new StatsService()) { }
+        public GameController() : base(new StatsService()) { }
 
         public IHttpActionResult Get()
         {

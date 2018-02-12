@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Web.Http.Routing;
 using Stats.DataAccess.Entities;
 
 namespace Stats.Models
@@ -13,16 +15,24 @@ namespace Stats.Models
         Team Create(TeamModel teamModel);
         GameModel Create(Game game);
         GameEventModel Create(GameEvent gameEvent);
-
+         
         GameEvent Create(Game gameEntity, Player playerEntity, int pointValue);
     }
 
     public class ModelFactory : IModelFactory
     {
+        private UrlHelper _urlHelper;
+
+        public ModelFactory (HttpRequestMessage message)
+        {
+            _urlHelper = new UrlHelper(message);
+        }
+
         public PlayerModel Create(Player player)
         {
             return new PlayerModel
             {
+                Url = _urlHelper.Link("DefaultApi",new { id = player.ID }),
                 FirstName = player.FirstName,
                 LastName = player.LastName,
                 PlayerId = player.ID,
